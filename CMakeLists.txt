@@ -1,22 +1,28 @@
-cmake_minimum_required(VERSION 2.8.11)
+cmake_minimum_required(VERSION 3.12)
 
-project(simple_demo CXX)
+project(simple_demo C CXX)
 
 if("${CMAKE_CXX_COMPILER_ID}" MATCHES "(GNU|Clang)")
     set(CMAKE_CXX_FLAGS "-std=c++11")
 endif()
+
+set(QSG_DOWNLOAD_DIR "${PROJECT_BINARY_DIR}/dl")
+set(QSG_BUILD_DIR "${PROJECT_BINARY_DIR}/building")
+set(QSG_IMAGE_DIR "${PROJECT_BINARY_DIR}/image")
 
 include(ExternalProject)
 
 ExternalProject_Add(kernel
     URL https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.6.68.tar.gz
     URL_HASH SHA256=6fb25ba5f89babe026128f477299784c78da8ae23586ad9db0bc02befc5ce3ba  
-    # DOWNLOAD_DIR "${PROJECT_BINARY_DIR}/dl"
-    # SOURCE_DIR "${PROJECT_BINARY_DIR}/build_dir/linux-6.6.68"
-    # PREFIX "${PROJECT_BINARY_DIR}/build_dir/linux-6.6.68"
-    CONFIGURE_COMMAND make defconfig
-    BUILD_COMMAND make -j
+    DOWNLOAD_DIR ${QSG_DOWNLOAD_DIR}
+    SOURCE_DIR "${PROJECT_BINARY_DIR}/linux-6.6.68"
+    PREFIX ${QSG_BUILD_DIR}
     BUILD_IN_SOURCE TRUE  
+    CONFIGURE_COMMAND make tinyconfig
+    BUILD_COMMAND make -j2 
+    INSTALL_COMMAND make INSTALL_PATH=${QSG_IMAGE_DIR} install && make INSTALL_MOD_PATH=${QSG_IMAGE_DIR} modules_install
+    DOWNLOAD_EXTRACT_TIMESTAMP TRUE
 )
 
 # ExternalProject_Add(
