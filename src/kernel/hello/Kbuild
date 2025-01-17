@@ -1,0 +1,2 @@
+obj-m := thello.o
+thello-y := hello.o
