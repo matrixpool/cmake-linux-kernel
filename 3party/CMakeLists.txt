@@ -1,6 +1,6 @@
 include(ExternalProject)
 
-# include(CompileKernel)
+include(CompileKernel)
 include(CompileBusybox)
 
 
