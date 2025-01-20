@@ -51,4 +51,9 @@ endif()
 file(MAKE_DIRECTORY ${QSG_OUTPUT_DIR})
 
 add_subdirectory(3party)
-# add_subdirectory(src)
+add_subdirectory(src)
+
+#make image
+add_custom_target(rootfs-install
+    COMMAND sh ${CMAKE_SOURCE_DIR}/script/rootfs_${QSG_PRODUCT}.sh ${CMAKE_C_COMPILER} ${QSG_OUTPUT_DIR} ${QSG_VERSION}
+)

@@ -5,8 +5,8 @@ if("${QSG_CPU}" STREQUAL "x86_64")
 endif()
 
 set(QSG_KERNEL_DIR "${QSG_BUILD_DIR}/linux-${QSG_KERNEL_VERSION}" CACHE STRING "QSG kernel source directory" FORCE)
-message_yellow("linux kernel version:   ${QSG_KERNEL_VERSION}")
-message_yellow("linux kernel path:      ${QSG_KERNEL_DIR}")
+message_yellow("linux kernel version: ${QSG_KERNEL_VERSION}")
+message_yellow("linux kernel path: ${QSG_KERNEL_DIR}")
 
 #compile kernel
 ExternalProject_Add(kernel
