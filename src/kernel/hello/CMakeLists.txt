@@ -25,3 +25,9 @@ add_custom_command(OUTPUT ${HELLO_FILE}
         DEPENDS ${SRC_LISTS} VERBATIM)
 add_custom_target(hello-module-compile ALL DEPENDS ${HELLO_FILE})
 add_custom_target(hello-module-clean COMMAND ${KBUILD_CMD} clean)
+
+install(PROGRAMS 
+	${CMAKE_CURRENT_BINARY_DIR}/${HELLO_FILE}
+	DESTINATION ${QSG_KERNEL_MODULE_DIR}
+)
+

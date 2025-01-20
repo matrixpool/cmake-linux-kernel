@@ -7,3 +7,4 @@ set(__KERNEL_HASH "9181339df8415cfc6799c7da6b64528d3b0382536a9c4d5fd9984657f9581
 set(__KERNEL_IMAGE "bzImage" CACHE STRING "linux kernel image" FORCE)
 
 #set the related compile modules 
+option(BUILD_BACKUP "build backupd module" ON)

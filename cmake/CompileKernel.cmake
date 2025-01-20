@@ -20,9 +20,9 @@ ExternalProject_Add(kernel
     BUILD_COMMAND make ARCH=${QSG_CPU} CROSS_COMPILE=${QSG_CROSS} all -j2 
     INSTALL_COMMAND 
         COMMAND ${CMAKE_COMMAND} -E make_directory ${QSG_OUTPUT_DIR}/boot
-        COMMAND ${CMAKE_COMMAND} -E make_directory ${QSG_OUTPUT_DIR}/lib/modules/${QSG_KERNEL_VERSION}
+        COMMAND ${CMAKE_COMMAND} -E make_directory ${QSG_KERNEL_MODULE_DIR}
         COMMAND cp ${QSG_KERNEL_DIR}/arch/${__ARCH}/boot/${__KERNEL_IMAGE} ${QSG_OUTPUT_DIR}/boot
-        COMMAND find ${QSG_KERNEL_DIR} -name "*.ko" | xargs -I {} cp {} ${QSG_OUTPUT_DIR}/lib/modules/${QSG_KERNEL_VERSION}
+        COMMAND find ${QSG_KERNEL_DIR} -name "*.ko" | xargs -I {} cp {} ${QSG_KERNEL_MODULE_DIR}
     DOWNLOAD_EXTRACT_TIMESTAMP TRUE
 )
 add_custom_target(kernel-compile DEPENDS kernel)
