@@ -10,10 +10,10 @@ ExternalProject_Add(busybox
     PREFIX "${QSG_BUILD_DIR}"
     BUILD_IN_SOURCE TRUE  
     CONFIGURE_COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_SOURCE_DIR}/package/busybox/config/config .config
-    BUILD_COMMAND make ARCH=${QSG_CPU} CROSS_COMPILE=${QSG_CROSS} -j2 
+    BUILD_COMMAND COMMAND $(MAKE) ARCH=${QSG_CPU} CROSS_COMPILE=${QSG_CROSS} -j2 
     INSTALL_COMMAND 
-        make ARCH=${QSG_CPU} CROSS_COMPILE=${QSG_CROSS} install &&  
-        ${CMAKE_COMMAND} -E copy ${QSG_BUILD_DIR}/busybox-${__BUSYBOX_VERION}/_install ${QSG_OUTPUT_DIR} 
+        COMMAND $(MAKE) ARCH=${QSG_CPU} CROSS_COMPILE=${QSG_CROSS} install
+        COMMAND rsync -av ${QSG_BUILD_DIR}/busybox-${__BUSYBOX_VERION}/_install/ ${QSG_OUTPUT_DIR}
     DOWNLOAD_EXTRACT_TIMESTAMP TRUE
 )
 add_custom_target(busybox-compile DEPENDS busybox)

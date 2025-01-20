@@ -35,17 +35,20 @@ endif()
 
 project(QSG C CXX ASM)
 
-#define QSG parameters
+#define QSG compile parameters
 set(QSG_PRODUCT ${PRODUCT})
 set(QSG_DOWNLOAD_DIR "${PROJECT_BINARY_DIR}/dl")
 set(QSG_BUILD_DIR "${PROJECT_BINARY_DIR}/building")
-set(QSG_OUTPUT_DIR "${PROJECT_SOURCE_DIR}/output")
+set(QSG_OUTPUT_DIR "${PROJECT_SOURCE_DIR}/output/${QSG_PRODUCT}")
+set(QSG_DIST_DIR "${PROJECT_BINARY_DIR}/output/dist")
 set(QSG_KERNEL_DIR "" CACHE STRING "QSG kernel directory variable")
 set(QSG_KERNEL_VERSION "" CACHE STRING "QSG linux kernel version variable")
 
-if(NOT EXISTS ${QSG_OUTPUT_DIR})
-    file(MAKE_DIRECTORY ${QSG_OUTPUT_DIR})
+#check and delete before image directory
+if(EXISTS ${QSG_OUTPUT_DIR})
+    file(REMOVE_RECURSE ${QSG_OUTPUT_DIR})
 endif()
+file(MAKE_DIRECTORY ${QSG_OUTPUT_DIR})
 
 add_subdirectory(3party)
-add_subdirectory(src)
+# add_subdirectory(src)
